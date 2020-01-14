@@ -3,6 +3,13 @@ import Vuex from 'vuex'
 
 // import example from './module-example'
 
+import auth from './storeAuth'
+import settings from './storeSettings'
+import appState from './storeAppState'
+// import appState from './store-appState'
+import games from './firestoreGames'
+import { vuexfireMutations } from 'vuexfire'
+
 Vue.use(Vuex)
 
 /*
@@ -14,16 +21,23 @@ Vue.use(Vuex)
  * with the Store instance.
  */
 
-export default function (/* { ssrContext } */) {
+export default function ({ store }) {
   const Store = new Vuex.Store({
+    state: {},
     modules: {
-      // example
+      settings,
+      auth,
+      appState,
+      games
+    },
+    mutations: {
+      ...vuexfireMutations
     },
 
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEV
   })
-
+  store = Store
   return Store
 }
